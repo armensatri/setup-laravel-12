@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class LoginAccess
 {
-  public static function access()
+  public static function Menu()
   {
     if (!Auth::check()) {
       return Redirect::route('login')->send();
@@ -32,5 +32,13 @@ class LoginAccess
     if (!$queryAccessMenu) {
       return Redirect::route('blocked')->send();
     }
+  }
+
+  public function CheckAcessMenu($roleId, $menuId)
+  {
+    return DB::table('role_has_menu')
+      ->where('role_id', $roleId)
+      ->where('menu_id', $menuId)
+      ->exists() ? 'checked' : '';
   }
 }

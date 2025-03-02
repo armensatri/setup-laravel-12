@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class Redirects
 {
-  public static function dashboard()
+  public static function Dashboard()
   {
     $user = Auth::user();
 

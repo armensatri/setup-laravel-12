@@ -6,22 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('submenus', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+  public function up(): void
+  {
+    Schema::create('submenus', function (Blueprint $table) {
+      $table->id();
+      $table->foreignId('menu_id')
+        ->references('id')
+        ->on('menus')
+        ->onDelete('cascade')
+        ->onUpdate('cascade');
+      $table->integer('ssm');
+      $table->string('name')->unique();
+      $table->string('slug')->unique();
+      $table->string('url', 5)->unique();
+      $table->string('route')->default('-');
+      $table->string('active')->default('-');
+      $table->string('routename')->default('-');
+      $table->string('image')->nullable();
+      $table->text('description');
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('submenus');
-    }
+  public function down(): void
+  {
+    Schema::dropIfExists('submenus');
+  }
 };

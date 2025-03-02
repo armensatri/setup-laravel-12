@@ -6,22 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('role_has_menu', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+  public function up(): void
+  {
+    Schema::create('role_has_menu', function (Blueprint $table) {
+      $table->id();
+      $table->foreignId('role_id')
+        ->references('id')
+        ->on('roles')
+        ->onDelete('cascade')
+        ->onUpdate('cascade');
+      $table->foreignId('menu_id')
+        ->references('id')
+        ->on('menus')
+        ->onDelete('cascade')
+        ->onUpdate('cascade');
+      $table->index(['role_id', 'menu_id']);
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('role_has_menu');
-    }
+  public function down(): void
+  {
+    Schema::dropIfExists('role_has_menu');
+  }
 };
