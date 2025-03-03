@@ -2,23 +2,20 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\View\Components\Frontend\Header\RouteToDashboard;
 
 class FrontendServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        //
-    }
+  public function register(): void
+  {
+    //
+  }
 
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+  public function boot(): void
+  {
+    // HEADER
+    Blade::component('route-to-dashboard', RouteToDashboard::class);
+  }
 }

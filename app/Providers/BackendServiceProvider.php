@@ -2,23 +2,107 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\View\Components\Backend\Error\Message;
+use App\View\Components\Backend\Pagination\Pagination;
+
+use App\View\Components\Backend\Button\{
+  ButtonCreate,
+  ButtonEditData,
+  ButtonCreateData,
+};
+
+use App\View\Components\Backend\Input\{
+  Input,
+  InputImage,
+  InputImagePreview,
+  InputSelect,
+  InputTextarea,
+};
+
+use App\View\Components\Backend\Show\{
+  ShowAction,
+  ShowBackground,
+  ShowData,
+  ShowImage,
+  ShowTextColor,
+};
+
+use App\View\Components\Backend\Sidebar\{
+  Menu,
+  Submenu,
+};
+
+use App\View\Components\Backend\Table\{
+  Backup,
+  Description,
+  Draft,
+  Indexs,
+  Refresh,
+  Search,
+  TdAccess,
+  TdAction,
+  TdImage,
+  TdVar,
+  TdVarBg,
+  TdVarWidth,
+  Th,
+  ThAction,
+};
 
 class BackendServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        //
-    }
+  public function register(): void
+  {
+    //
+  }
 
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+  public function boot(): void
+  {
+    // BUTTON
+    Blade::component('button-create', ButtonCreate::class);
+    Blade::component('button-create-data', ButtonCreateData::class);
+    Blade::component('button-edit-data', ButtonEditData::class);
+
+    // ERROR
+    Blade::component('message', Message::class);
+
+    // INPUT
+    Blade::component('input', Input::class);
+    Blade::component('input-image', InputImage::class);
+    Blade::component('input-image-preview', InputImagePreview::class);
+    Blade::component('input-select', InputSelect::class);
+    Blade::component('input-textarea', InputTextarea::class);
+
+    // PAGINATION
+    Blade::component('pagination', Pagination::class);
+
+    // SHOW
+    Blade::component('show-action', ShowAction::class);
+    Blade::component('show-background', ShowBackground::class);
+    Blade::component('show-data', ShowData::class);
+    Blade::component('show-image', ShowImage::class);
+    Blade::component('show-text-color', ShowTextColor::class);
+
+    // SIDEBAR
+    Blade::component('menu', Menu::class);
+    Blade::component('submenu', Submenu::class);
+
+    // TABLE
+    Blade::component('backup', Backup::class);
+    Blade::component('description', Description::class);
+    Blade::component('draft', Draft::class);
+    Blade::component('indexs', Indexs::class);
+    Blade::component('refresh', Refresh::class);
+    Blade::component('search', Search::class);
+    Blade::component('td-access', TdAccess::class);
+    Blade::component('td-action', TdAction::class);
+    Blade::component('td-image', TdImage::class);
+    Blade::component('td-var', TdVar::class);
+    Blade::component('td-var-bg', TdVarBg::class);
+    Blade::component('td-var-width', TdVarWidth::class);
+    Blade::component('th', Th::class);
+    Blade::component('th-action', ThAction::class);
+  }
 }
