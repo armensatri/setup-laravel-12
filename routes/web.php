@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\Home\HomeController;
 
+use App\Http\Controllers\Auth\{
+  LoginController,
+  LogoutController,
+  RegisterController,
+};
+
+
 /*---------------------------------------------------------------
 // * ROUTE AUTH
 |---------------------------------------------------------------*/
@@ -13,13 +20,30 @@ use App\Http\Controllers\Frontend\Home\HomeController;
 | ROUTE LOGIN & REGISTER
 |---------------------------------------------------------------*/
 
+Route::group(['middleware' => ['guest']], function () {
+  Route::controller(LoginController::class)->group(
+    function () {
+      Route::get('/auth/login', 'index')->name('login');
+      Route::post('/auth/login', 'store')->name('login.store');
+    }
+  );
 
+  Route::controller(RegisterController::class)->group(
+    function () {
+      Route::get('/auth/register', 'index')->name('register');
+      Route::post('/auth/register', 'store')->name('register.store');
+    }
+  );
+});
 
 /*---------------------------------------------------------------
 | ROUTE LOGOUT
 |---------------------------------------------------------------*/
 
-
+Route::group(['middleware' => ['auth']], function () {
+  Route::post('/auth/logout', [LogoutController::class, 'logout'])
+    ->name('logout');
+});
 
 /*---------------------------------------------------------------
 // * ROUTE FRONTEND
@@ -31,8 +55,14 @@ use App\Http\Controllers\Frontend\Home\HomeController;
 | ROUTE HOME
 |---------------------------------------------------------------*/
 
-Route::get('/', [HomeController::class])
+Route::get('/', [HomeController::class, 'index'])
   ->name('home');
+
+/*---------------------------------------------------------------
+| ROUTE ?
+|---------------------------------------------------------------*/
+
+
 
 /*---------------------------------------------------------------
 // * ROUTE BACKEND

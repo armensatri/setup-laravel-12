@@ -1,17 +1,17 @@
 <?php
 
-namespace Database\Seeders\pivot;
+namespace Database\Seeders\Pivot;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class RolehasmenuSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
-    {
-        //
-    }
+  /**
+   * Run the database seeds.
+   */
+  public function run(): void
+  {
+    //
+  }
 }
