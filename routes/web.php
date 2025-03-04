@@ -9,6 +9,13 @@ use App\Http\Controllers\Auth\{
   RegisterController,
 };
 
+use App\Http\Controllers\Backend\Dashboard\{
+  OwnerController,
+  SuperadminController,
+  AdminController,
+  MemberController,
+};
+use App\Http\Controllers\Backend\Error\ErrorController;
 
 /*---------------------------------------------------------------
 // * ROUTE AUTH
@@ -74,7 +81,19 @@ Route::get('/', [HomeController::class, 'index'])
 | ROUTE DASHBOARD
 |---------------------------------------------------------------*/
 
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/owner', [OwnerController::class, 'index'])
+    ->name('owner');
 
+  Route::get('/superadmin', [SuperadminController::class, 'index'])
+    ->name('superadmin');
+
+  Route::get('/admin', [AdminController::class, 'index'])
+    ->name('admin');
+
+  Route::get('/member', [MemberController::class, 'index'])
+    ->name('member');
+});
 
 /*---------------------------------------------------------------
 | ROUTE DRAFT
@@ -115,3 +134,11 @@ Route::get('/', [HomeController::class, 'index'])
 /*---------------------------------------------------------------
 | ROUTE MANAGE MENU
 |---------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------
+| ROUTE RANDOM
+|---------------------------------------------------------------*/
+
+Route::get('/blocked', [ErrorController::class, 'blocked'])
+  ->name('blocked');

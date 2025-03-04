@@ -2,16 +2,74 @@
 
 namespace Database\Seeders\Pivot;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Managemenu\Menu;
+use App\Models\Manageuser\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RolehasmenuSeeder extends Seeder
 {
-  /**
-   * Run the database seeds.
-   */
   public function run(): void
   {
-    //
+    $roles = Role::whereIn('name', [
+      'owner',
+      'superadmin',
+      'admin',
+      'member'
+    ])->get()->keyBy('name');
+
+    $menus = Menu::whereIn('name', [
+      'owner',
+      'superadmin',
+      'admin',
+      'member',
+      'account',
+      'manageaccess',
+      'managedata',
+      'manageuser',
+      'managemenu'
+    ])->get()->keyBy('name');
+
+    $roleHasMenus = [
+      'owner' => [
+        'owner',
+        'account',
+        'manageaccess',
+        'managedata',
+        'manageuser',
+        'managemenu'
+      ],
+
+      'superadmin' => [
+        'superadmin',
+        'account',
+        'manageaccess',
+        'managedata',
+        'manageuser',
+        'managemenu'
+      ],
+
+      'admin' => [
+        'admin',
+        'account'
+      ],
+
+      'member' => [
+        'member',
+        'account'
+      ],
+    ];
+
+    foreach ($roleHasMenus as $roleName => $menuNames) {
+      if (isset($roles[$roleName])) {
+        $roles[$roleName]->menus()->attach(
+          collect($menuNames)->mapWithKeys(
+            fn($menu) => [
+              $menus[$menu]->id => []
+            ]
+          )
+        );
+      }
+    }
   }
 }

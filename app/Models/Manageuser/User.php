@@ -5,9 +5,10 @@ namespace App\Models\Manageuser;
 use App\Helpers\Searching;
 use App\Models\Manageuser\Role;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Model implements Authenticatable
 {
   protected $table = 'users';
 
@@ -20,17 +21,6 @@ class User extends Authenticatable
     'role_id',
     'is_active'
   ];
-
-  protected $hidden = [
-    'password'
-  ];
-
-  protected function casts()
-  {
-    return [
-      'password' => 'hashed'
-    ];
-  }
 
   public function getRouteKeyName()
   {
