@@ -116,6 +116,58 @@ class SubmenuSeeder extends Seeder
         'routename' => '/managedata/data',
         'description' => 'manage data'
       ],
+
+      [
+        'menu_id' => 8,
+        'ssm' => 1,
+        'name' => 'users',
+        'slug' => 'users',
+        'route' => '/manageuser/users',
+        'active' => 'manageuser/users',
+        'routename' => '/manageuser/users',
+        'description' => 'submenu data user'
+      ],
+      [
+        'menu_id' => 8,
+        'ssm' => 2,
+        'name' => 'roles',
+        'slug' => 'roles',
+        'route' => '/manageuser/roles',
+        'active' => 'manageuser/roles',
+        'routename' => '/manageuser/roles',
+        'description' => 'submenu data role'
+      ],
+      [
+        'menu_id' => 8,
+        'ssm' => 3,
+        'name' => 'permissions',
+        'slug' => 'permissions',
+        'route' => '/manageuser/permissions',
+        'active' => 'manageuser/permissions',
+        'routename' => '/manageuser/permissions',
+        'description' => 'submenu data permission'
+      ],
+
+      [
+        'menu_id' => 9,
+        'ssm' => 1,
+        'name' => 'menus',
+        'slug' => 'menus',
+        'route' => '/managemenu/menus',
+        'active' => 'managemenu/menus',
+        'routename' => '/managemenu/menus',
+        'description' => 'submenu data menu'
+      ],
+      [
+        'menu_id' => 9,
+        'ssm' => 2,
+        'name' => 'submenus',
+        'slug' => 'submenus',
+        'route' => '/managemenu/submenus',
+        'active' => 'managemenu/submenus',
+        'routename' => '/managemenu/submenus',
+        'description' => 'submenu data submenu'
+      ],
     ];
 
     foreach ($submenus as $submenu) {

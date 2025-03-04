@@ -2,11 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\Home\HomeController;
+use App\Http\Controllers\Backend\Error\ErrorController;
+use App\Http\Controllers\Backend\Account\AccountController;
 
 use App\Http\Controllers\Auth\{
   LoginController,
   LogoutController,
   RegisterController,
+};
+
+use App\Http\Controllers\Backend\Manageaccess\{
+  MenuController,
+  PermissionController,
 };
 
 use App\Http\Controllers\Backend\Dashboard\{
@@ -15,7 +22,16 @@ use App\Http\Controllers\Backend\Dashboard\{
   AdminController,
   MemberController,
 };
-use App\Http\Controllers\Backend\Error\ErrorController;
+
+use App\Http\Controllers\Backend\Manageuser\{
+  RolesController,
+  PermissionsController,
+};
+
+use App\Http\Controllers\Backend\Managemenu\{
+  MenusController,
+  SubmenusController,
+};
 
 /*---------------------------------------------------------------
 // * ROUTE AUTH
@@ -105,10 +121,27 @@ Route::group(['middleware' => ['auth']], function () {
 | ROUTE SLUG
 |---------------------------------------------------------------*/
 
-
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/roles/slug', [RolesController::class, 'slug']);
+  Route::get('/permissions/slug', [PermissionsController::class, 'slug']);
+  Route::get('/menus/slug', [MenusController::class, 'slug']);
+  Route::get('/submenus/slug', [SubmenusController::class, 'slug']);
+});
 
 /*---------------------------------------------------------------
 | ROUTE ACCOUNT
+|---------------------------------------------------------------*/
+
+Route::group(['middleware' => ['auth']], function () {
+  Route::controller(AccountController::class)->group(
+    function () {
+      //
+    }
+  );
+});
+
+/*---------------------------------------------------------------
+| ROUTE ACCESS
 |---------------------------------------------------------------*/
 
 
@@ -134,6 +167,7 @@ Route::group(['middleware' => ['auth']], function () {
 /*---------------------------------------------------------------
 | ROUTE MANAGE MENU
 |---------------------------------------------------------------*/
+
 
 
 /*---------------------------------------------------------------

@@ -29,7 +29,6 @@ class RegisterController extends Controller
       return redirect()->back();
     }
 
-    $datastore['password'] = bcrypt($datastore['password']);
     $datastore['role_id'] = $role->id;
 
     User::create($datastore);
